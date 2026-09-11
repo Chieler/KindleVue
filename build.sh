@@ -6,9 +6,10 @@ cd "$(dirname "$0")"
 APP="KindleVue.app"
 DMG="KindleVue.dmg"
 rm -rf "$APP" "$DMG"
-mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
 swiftc -O KindleVue.swift -o "$APP/Contents/MacOS/KindleVue"
+cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 
 cat > "$APP/Contents/Info.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -21,6 +22,8 @@ cat > "$APP/Contents/Info.plist" <<'EOF'
     <string>KindleVue</string>
     <key>CFBundleIdentifier</key>
     <string>com.kindlevue.app</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>CFBundleVersion</key>
     <string>1.0</string>
     <key>CFBundleShortVersionString</key>
