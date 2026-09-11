@@ -6,7 +6,7 @@ A macOS menu bar app that overlays a warm, matte tint and film grain across ever
 
 No Xcode, no terminal, no build step needed.
 
-1. [Download KindleVue.dmg](https://github.com/Chieler/Paperview/raw/main/KindleVue.dmg)
+1. [Download KindleVue.dmg](https://github.com/Chieler/KindleVue/raw/main/KindleVue.dmg)
 2. Double-click the downloaded dmg to mount it.
 3. Drag `KindleVue.app` onto the `Applications` shortcut in the window that opens.
 4. Open `KindleVue` from Applications (Launchpad or Spotlight). macOS will warn it's from an unidentified developer (the app is ad-hoc signed, not notarized) — right-click the app → **Open** → **Open** again to confirm. You only need to do this once.
