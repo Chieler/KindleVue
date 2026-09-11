@@ -1,13 +1,14 @@
 #!/bin/bash
-# Builds KindleView.app — a double-clickable macOS app bundle. Run: ./build.sh
+# Builds KindleVue.app and packages it into KindleVue.dmg. Run: ./build.sh
 set -euo pipefail
 cd "$(dirname "$0")"
 
-APP="KindleView.app"
-rm -rf "$APP" "$APP.zip"
+APP="KindleVue.app"
+DMG="KindleVue.dmg"
+rm -rf "$APP" "$DMG"
 mkdir -p "$APP/Contents/MacOS"
 
-swiftc -O KindleView.swift -o "$APP/Contents/MacOS/KindleView"
+swiftc -O KindleVue.swift -o "$APP/Contents/MacOS/KindleVue"
 
 cat > "$APP/Contents/Info.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -15,17 +16,17 @@ cat > "$APP/Contents/Info.plist" <<'EOF'
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>KindleView</string>
+    <string>KindleVue</string>
     <key>CFBundleDisplayName</key>
-    <string>KindleView</string>
+    <string>KindleVue</string>
     <key>CFBundleIdentifier</key>
-    <string>com.kindleview.app</string>
+    <string>com.kindlevue.app</string>
     <key>CFBundleVersion</key>
     <string>1.0</string>
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>
     <key>CFBundleExecutable</key>
-    <string>KindleView</string>
+    <string>KindleVue</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>LSUIElement</key>
@@ -40,5 +41,10 @@ EOF
 
 /usr/bin/codesign --force --deep --sign - "$APP" 2>/dev/null || true
 
-zip -qr "$APP.zip" "$APP"
-echo "Built $APP and $APP.zip"
+STAGING=$(mktemp -d)
+cp -R "$APP" "$STAGING/"
+ln -s /Applications "$STAGING/Applications"
+hdiutil create -volname "KindleVue" -srcfolder "$STAGING" -ov -format UDZO "$DMG" -quiet
+rm -rf "$STAGING"
+
+echo "Built $APP and $DMG"

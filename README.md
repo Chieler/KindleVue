@@ -1,4 +1,4 @@
-# KindleView
+# KindleVue
 
 A macOS menu bar app that overlays a warm, matte tint and film grain across every screen — makes your display feel less like a backlit panel, more like paper.
 
@@ -6,19 +6,17 @@ A macOS menu bar app that overlays a warm, matte tint and film grain across ever
 
 No Xcode, no terminal, no build step needed.
 
-1. [Download KindleView.app.zip](https://github.com/Chieler/Paperview/raw/main/KindleView.app.zip)
-2. Double-click the downloaded zip to unzip it — you'll get `KindleView.app`.
-3. Drag `KindleView.app` into `/Applications` (or just double-click it to run in place).
-4. Double-click `KindleView.app` to launch. macOS will warn it's from an unidentified developer (the app is ad-hoc signed, not notarized) — right-click the app → **Open** → **Open** again to confirm. You only need to do this once.
+1. [Download KindleVue.dmg](https://github.com/Chieler/Paperview/raw/main/KindleVue.dmg)
+2. Double-click the downloaded dmg to mount it.
+3. Drag `KindleVue.app` onto the `Applications` shortcut in the window that opens.
+4. Open `KindleVue` from Applications (Launchpad or Spotlight). macOS will warn it's from an unidentified developer (the app is ad-hoc signed, not notarized) — right-click the app → **Open** → **Open** again to confirm. You only need to do this once.
 5. Look for the 📄 icon in the menu bar — that means it's running.
 
-If step 4's warning doesn't show an "Open" option, run this once in Terminal after unzipping, then try again:
+If step 4's warning doesn't show an "Open" option, run this once in Terminal, then try again:
 
 ```
-xattr -dr com.apple.quarantine ~/Downloads/KindleView.app
+xattr -dr com.apple.quarantine /Applications/KindleVue.app
 ```
-
-(adjust the path if you moved the app elsewhere first)
 
 ## Controls
 
@@ -39,7 +37,7 @@ Draws a borderless, click-through, always-on-top window over each screen (`NSScr
 
 ```
 ./build.sh
-open KindleView.app
+open KindleVue.app
 ```
 
 Requires Xcode command line tools. Only needed if you want to build it yourself instead of using the download above.
