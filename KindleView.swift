@@ -1,12 +1,12 @@
 import Cocoa
 
-// paperman: menu bar app. Warm/matte alpha overlay + grain over every screen.
+// kindleview: menu bar app. Warm/matte alpha overlay + grain over every screen.
 
 let defaults = UserDefaults.standard
-let kIntensity = "paperman.intensity"
-let kWarmth = "paperman.warmth"
-let kGrain = "paperman.grain"
-let kEnabled = "paperman.enabled"
+let kIntensity = "kindleview.intensity"
+let kWarmth = "kindleview.warmth"
+let kGrain = "kindleview.grain"
+let kEnabled = "kindleview.enabled"
 
 func registerDefaults() {
     defaults.register(defaults: [kIntensity: 0.5, kWarmth: 0.5, kGrain: 0.4, kEnabled: true])
