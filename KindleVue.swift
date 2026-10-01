@@ -1,12 +1,12 @@
 import Cocoa
 
-// kindlevue: menu bar app. Warm/matte alpha overlay + grain over every screen.
+// Papershade: menu bar app. Warm/matte alpha overlay + grain over every screen.
 
 let defaults = UserDefaults.standard
-let kIntensity = "kindlevue.intensity"
-let kWarmth = "kindlevue.warmth"
-let kGrain = "kindlevue.grain"
-let kEnabled = "kindlevue.enabled"
+let kIntensity = "papershade.intensity"
+let kWarmth = "papershade.warmth"
+let kGrain = "papershade.grain"
+let kEnabled = "papershade.enabled"
 
 func registerDefaults() {
     defaults.register(defaults: [kIntensity: 0.5, kWarmth: 0.5, kGrain: 0.4, kEnabled: true])
@@ -56,12 +56,45 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     var grain: Double { defaults.double(forKey: kGrain) }
     var enabled: Bool { defaults.bool(forKey: kEnabled) }
 
+    func loadStatusIcon() -> NSImage? {
+        if let image = Bundle.main.image(forResource: "StatusIcon") {
+            image.size = NSSize(width: 15, height: 18)
+            image.isTemplate = true
+            return image
+        }
+        if let image = NSImage(named: "StatusIcon") {
+            image.size = NSSize(width: 15, height: 18)
+            image.isTemplate = true
+            return image
+        }
+        let resourceURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/StatusIcon.png")
+        if let image = NSImage(contentsOf: resourceURL) {
+            image.size = NSSize(width: 15, height: 18)
+            image.isTemplate = true
+            return image
+        }
+        let localURL = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appendingPathComponent("StatusIcon.png")
+        if let image = NSImage(contentsOf: localURL) {
+            image.size = NSSize(width: 15, height: 18)
+            image.isTemplate = true
+            return image
+        }
+        return nil
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         registerDefaults()
         NSApp.setActivationPolicy(.accessory)
 
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        statusItem.button?.title = "📄"
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        if let button = statusItem.button {
+            if let icon = loadStatusIcon() {
+                button.image = icon
+                button.imagePosition = .imageOnly
+            } else {
+                button.title = "📄"
+            }
+        }
 
         let menu = NSMenu()
 

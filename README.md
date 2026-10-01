@@ -1,4 +1,4 @@
-# KindleVue
+# Papershade
 
 A macOS menu bar app that overlays a warm, matte tint and film grain across every screen — makes your display feel less like a backlit panel, more like paper.
 
@@ -6,17 +6,13 @@ A macOS menu bar app that overlays a warm, matte tint and film grain across ever
 
 No Xcode, no terminal, no build step needed.
 
-1. [Download KindleVue.dmg](https://github.com/Chieler/KindleVue/raw/main/KindleVue.dmg)
-2. Double-click the downloaded dmg to mount it.
-3. Drag `KindleVue.app` onto the `Applications` shortcut in the window that opens.
-4. Open `KindleVue` from Applications (Launchpad or Spotlight). macOS will warn it's from an unidentified developer (the app is ad-hoc signed, not notarized) — right-click the app → **Open** → **Open** again to confirm. You only need to do this once.
-5. Look for the 📄 icon in the menu bar — that means it's running.
+1. **[Download Papershade.dmg](https://github.com/Chieler/KindleVue/raw/main/Papershade.dmg)**
+2. Double-click the downloaded DMG.
+3. Drag `Papershade.app` onto the `Applications` shortcut in the window that opens.
+4. Open `Papershade` from Applications (Launchpad or Spotlight).
+5. Look for the Papershade waves in the menu bar — that means it's running.
 
-If step 4's warning doesn't show an "Open" option, run this once in Terminal, then try again:
-
-```
-xattr -dr com.apple.quarantine /Applications/KindleVue.app
-```
+That’s it. The download is signed and notarized by Apple, so macOS should open it normally.
 
 ## Controls
 
@@ -37,10 +33,29 @@ Draws a borderless, click-through, always-on-top window over each screen (`NSScr
 
 ```
 ./build.sh
-open KindleVue.app
 ```
 
-Requires Xcode command line tools. Only needed if you want to build it yourself instead of using the download above.
+`build.sh` requires the `Developer ID Application: Chieler Li (2DS36Z35HX)` certificate in your login keychain. To use a different identity, set `SIGNING_IDENTITY` to its full Keychain name.
+
+### Notarizing a release
+
+Before the first release, create an app-specific password at [appleid.apple.com](https://appleid.apple.com/) and store it locally (this password is not added to the repository):
+
+```
+xcrun notarytool store-credentials Papershade-notary \
+  --apple-id "YOUR_APPLE_ID" \
+  --team-id "2DS36Z35HX" \
+  --password "YOUR_APP_SPECIFIC_PASSWORD"
+```
+
+Then create a signed, notarized release:
+
+```
+./build.sh
+./notarize.sh
+```
+
+Only upload `Papershade.dmg` after `notarize.sh` reports success. This requires Xcode command line tools.
 
 ## License
 
