@@ -6,6 +6,12 @@
 
 Papershade is a macOS menu-bar app that gives every display a warm, matte paper-like finish.
 
+## See the difference
+
+| Before | After |
+| :---: | :---: |
+| <img src="Before.png" alt="Display before Papershade" width="100%"> | <img src="After.png" alt="Display with Papershade enabled" width="100%"> |
+
 ## Download and install
 
 1. **[Download Papershade.dmg](https://github.com/Chieler/KindleVue/raw/main/Papershade.dmg)**
